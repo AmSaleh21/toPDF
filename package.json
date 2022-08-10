@@ -1,0 +1,14 @@
+{
+  "name": "to-pdf",
+  "version": "0.1.0a",
+  "description": "node script to convert text to pdf",
+  "main": "index.jsx",
+  "repository": "https://github.com/AmSaleh21/toPDF.git",
+  "author": "ams",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "html-pdf-node": "^1.0.8"
+  }
+}

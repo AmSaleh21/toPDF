@@ -10,7 +10,7 @@ const FILES_PATH = path.join(__dirname, '..', 'files/');
 
 /**
  *
- * @param req expects json with options and content { options, file}
+ * @param req expects json with options, file with optional name { options, file, <name>}
  * @param res respond with the buffer to download the pdf {status, message}
  * @param next for error middleware
  */

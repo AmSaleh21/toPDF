@@ -40,9 +40,8 @@ export const read = async fileName => {
                 console.log('not found');
                 data = {status: false, message: readError};
             }
+            console.log('promise then', data)
         })
-        console.log('promise then', {...data})
-        return data;
     } catch (error) {
         throw error;
     }

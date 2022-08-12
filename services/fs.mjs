@@ -10,15 +10,19 @@ const FILES_PATH = path.join(__dirname, '..', 'files/');
  * @description write buffer to pdf file
  * @param buffer pdf buffer
  * @param fileName fileName pdf name, default date if not provided
- * @returns {{message: string, status: boolean}}
+ * @returns {Promise<{message: string, status: boolean}>}
  */
-export const write = (buffer, fileName) => {
+export const write = (buffer, fileName, cb) => {
     try {
-        const pdfName = fileName ? fileName : Date.now() + '.pdf';
-        fs.writeFile(path.join(FILES_PATH, pdfName), buffer, writeError => {
-            return {status: false, message: 'failed to write file' + writeError};
+        const pdfName = fileName ? `${fileName}.pdf` : Date.now() + '.pdf';
+        const filePath = path.join(FILES_PATH, pdfName);
+
+        fs.writeFile(filePath, buffer, writeError => {
+            if (writeError){
+                return {status: false, message: 'failed to write file' + writeError};
+            }
+            return cb({status: true, message: 'File written', filePath});
         });
-        return {status: true, message: 'File written'};
     } catch (error) {
         throw error;
     }
@@ -29,7 +33,7 @@ export const write = (buffer, fileName) => {
  * @param fileName file to get from storage
  * @returns {Promise<void>}
  */
-export const read = async fileName => {
+export const read = (fileName, getBuffer) => {
     try {
         let data = {};
         fs.readFile(path.join(FILES_PATH, fileName), (readError, readData) => {
@@ -40,7 +44,8 @@ export const read = async fileName => {
                 console.log('not found');
                 data = {status: false, message: readError};
             }
-            console.log('promise then', data)
+            console.log('promise then', data);
+            return getBuffer(data);
         })
     } catch (error) {
         throw error;

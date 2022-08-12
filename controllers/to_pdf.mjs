@@ -54,19 +54,14 @@ export const getAndSend = (req, res, next) => {
     try {
         let fileName = req.params.name;
         console.log(fileName)
-        fs.readFile(path.join(FILES_PATH, fileName), (readError, readData) => {
-            console.log('in fs')
-            if(!readError && readData) {
-                console.log(readData)
+
+        read(fileName, buffer => {
+            buffer &&  write(buffer.message, fileName, ({status, message, filePath}) => {
                 res.status(200);
                 res.setHeader("Content-Type", "application/pdf");
-                res.setHeader("Content-Disposition", "attachment");
-                res.send(readData)
-            }else {
-                console.log(readError)
-                res.status(400);
-                res.send({status: false, message: "some error happened" + readError});
-            }
+                res.setHeader("Content-Disposition", `attachment; filename=${fileName}`);
+                res.send(message)
+            });
         });
     }catch (error) {
         next(error)

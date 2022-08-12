@@ -12,10 +12,9 @@ const FILES_PATH = path.join(__dirname, '..', 'files/');
  * @param fileName fileName pdf name, default date if not provided
  * @returns {{message: string, status: boolean}}
  */
-export const write = (buffer, fileName = "") => {
+export const write = (buffer, fileName) => {
     try {
-        let pdfName;
-        fileName === "" ? pdfName = Date.now() + '.pdf' : pdfName = fileName;
+        const pdfName = fileName ? fileName : Date.now() + '.pdf';
         fs.writeFile(path.join(FILES_PATH, pdfName), buffer, writeError => {
             return {status: false, message: 'failed to write file' + writeError};
         });

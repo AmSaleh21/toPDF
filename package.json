@@ -6,6 +6,12 @@
   "repository": "https://github.com/AmSaleh21/toPDF.git",
   "author": "ams",
   "license": "MIT",
+  "scripts": {
+    "start": "node index.mjs"
+  },
+  "engines": {
+    "node": "18.x"
+  },
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.18.1",

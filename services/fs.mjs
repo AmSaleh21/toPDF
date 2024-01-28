@@ -10,6 +10,7 @@ const FILES_PATH = path.join(__dirname, '..', 'files/');
  * @description write buffer to pdf file
  * @param buffer pdf buffer
  * @param fileName fileName pdf name, default date if not provided
+ * @param cb
  * @returns {Promise<{message: string, status: boolean}>}
  */
 export const write = (buffer, fileName, cb) => {
@@ -31,6 +32,7 @@ export const write = (buffer, fileName, cb) => {
 /**
  * @description read pdf file from storage
  * @param fileName file to get from storage
+ * @param getBuffer
  * @returns {Promise<void>}
  */
 export const read = (fileName, getBuffer) => {
